@@ -1,4 +1,6 @@
 KivEnt-GLPolyGen2d
 ==================
 
-A library for proceduraly generating game art assets in the form of vertex colored 2d meshes.
+An experimental library for proceduraly generating game art assets in the form of vertex colored 2d meshes. Designed for use with Kivy and KivEnt
+
+
