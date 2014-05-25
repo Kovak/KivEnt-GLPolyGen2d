@@ -87,16 +87,29 @@ uniform mat4       modelview_mat;
 uniform mat4       projection_mat;
 uniform vec4       color;
 uniform float      opacity;
+uniform sampler2D texture0;
 
-vec4 getcolor(vec2 v) {
-  float x = v.x;
-  float y = v.y;
-  float n1 = (4./7.)*snoise(vec2(v.x, v.y));
-  float n2 = (2./7.)*snoise(vec2(v.x*2., v.y*2.));
-  float n3 = (1./7.)*snoise(vec2(v.x*4., v.y*4.));
-  float n = n1 + n2 + n3;
-  n = n/2. + .5;
-  vec4 ret_color = vec4(n, n, n, 1.);
+
+float sumnoiseoctaves(vec2 p, int octaves, float persistance, float scale) {
+	float sum = 0.0;
+	float amp = 1.0;
+	float freq = scale;
+	float n = 0.;
+	int i;
+	for(i = 0; i < octaves; i+=1)
+	{
+		n += snoise(p*freq);
+		sum += amp;
+		amp *= persistance;
+		freq *= 2.;
+	}
+	n /= sum;
+	n = n/2. + .5;
+	return n;
+}
+
+vec4 getcolor(float n) {
+  vec4 ret_color = texture2D(texture0, vec2(0., n));
   return ret_color;
 }
 
@@ -104,7 +117,7 @@ void main (void) {
   
   float r = vColor.r;
   if (r == -1.)
-    frag_color = getcolor(vPosition.xy);
+    frag_color = getcolor(sumnoiseoctaves(vPosition.xy, 4, .5, .002));
   else
     frag_color = vColor;
   gl_Position = projection_mat * modelview_mat * vec4(vPosition.xy, 0.0, 1.0);
