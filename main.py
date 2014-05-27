@@ -15,10 +15,10 @@ class RegularPolygonRenderer(Widget):
         self.canvas.shader.source = 'poscolorshader.glsl'
         super(RegularPolygonRenderer, self).__init__(**kwargs) 
         self.color_vertex_map = {}
-        self.draw_regular_polygon((400, 300), 1, 40, (1., 1., 1., 1.),
+        self.draw_regular_polygon((300, 200), 1, 40, (1., 1., 1., 1.),
             {
             #Enter your level widths and colors here
-            1: (150., (.5, .6, 0., 1.), 0.),
+            1: (250., (.5, .6, 0., 1.), 0.),
             2: (10., (.2, 1., 0., 1.), 0.0),
             3: (30., (0.2, 1., 0., 0.), 0.0),  
             })

@@ -117,7 +117,7 @@ void main (void) {
   
   float r = vColor.r;
   if (r == -1.)
-    frag_color = getcolor(sumnoiseoctaves(vPosition.xy, 4, .5, .002));
+    frag_color = getcolor(sumnoiseoctaves(vPosition.xy, 6, .1, .0002));
   else
     frag_color = vColor;
   gl_Position = projection_mat * modelview_mat * vec4(vPosition.xy, 0.0, 1.0);
